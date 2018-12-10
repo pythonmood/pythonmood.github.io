@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>my WebGIS</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/3.0.3/layer/vector/KML.js"></script>
+	<script src="js/catiline.js"></script>
+	<script src="js/leaflet.shpfile.js"></script>
+	<script src="js/data.js"></script>
+
+
+
+</head>
+
+
+<body onload="onpageload_completed()">
+
+<div class="easyui-layout" style="height:550px;">
+        <div data-options="region:'north'" style="height:auto"><a href="#" class="easyui-linkbutton" onclick="javascript:aboutme()">About me</a>
+	</div>
+
+        <div data-options="region:'east',split:true" title="." style="width:200px;">
+            <ul id="a" class="easyui-tree" checkbox="true", data-options="onContextMenu: function(e,node){
+					if (node.checked==true && node.url) {document.getElementById('zoomtothis').style.display= 'block';}else{document.getElementById('zoomtothis').style.display= 'none';}
+					e.preventDefault();
+					$(this).tree('select',node.target);
+					$('#mm').menu('show',{
+						left: e.pageX,
+						top: e.pageY
+					});
+				}"></ul>
+        </div>
+
+
+        <div data-options="region:'west',split:true,collapsed:true" title="West" style="width:100px;"></div>
+
+        <div id="map" , data-options="region:'center',title:'Main map',iconCls:'icon-ok'"></div>
+
+
+        <div id="stat" , data-options="region:'south',split:true" style="height:25px;">
+		<center><table><tr><td>Zoom:</td> <td id="zoomstatus"></td><td>|</td><td id="latlng"></td></tr></table></center>
+	</div>
+
+</div>
+
+
+
+
+<script type='text/javascript'>
+
+////
+
+
+//first layer most be kml :(
+
+
+
+
+
+
+////
+
+var map = new L.Map('map', {
+            center: new L.LatLng(35.5054, 51.448975),
+            zoom: 7,	
+});
+
+
+var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+})
+
+
+var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+
+
+var OpenMapSurfer_Roads = L.tileLayer('https://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
+	maxZoom: 20,
+	attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+
+
+var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+});
+var Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 1,
+	maxZoom: 16,
+	ext: 'jpg'
+});
+
+
+var Stamen_TerrainBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}{r}.{ext}', {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 18,
+	ext: 'png'
+});
+
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
+
+
+
+
+
+
+OpenStreetMap_HOT.addTo(map);
+var curbasemap = "OpenStreetMap_HOT";
+
+//https://leaflet-extras.github.io/leaflet-providers/preview/
+var allbasemapes = {};
+allbasemapes["OpenStreetMap_HOT"] = OpenStreetMap_HOT;
+allbasemapes["OpenTopoMap"] = OpenTopoMap;
+allbasemapes["OpenStreetMap_Mapnik"] = OpenStreetMap_Mapnik;
+allbasemapes["OpenMapSurfer_Roads"] = OpenMapSurfer_Roads;
+allbasemapes["Stamen_Watercolor"] = Stamen_Watercolor;
+allbasemapes["Stamen_Watercolor"] = Stamen_Watercolor;
+allbasemapes["Stamen_TerrainBackground"] = Stamen_TerrainBackground;
+allbasemapes["Esri_WorldImagery"] = Esri_WorldImagery;
+
+
+setTimeout(function() {map.invalidateSize()}, 4000);
+
+
+////
+map.on("contextmenu", function (event) {
+  $('#dlg').dialog('close');
+  $('#dlg').html( " " + event.latlng.toString() );
+  $('#dlg').dialog('open');
+  //L.marker(event.latlng).addTo(map);
+});
+
+
+map.on("mousemove", function (e) {
+	if (!curbasemap == ""){
+  	//alert(map.getCenter().toString());
+	document.getElementById('latlng').innerHTML =e.latlng.toString();
+
+	}
+});
+
+document.getElementById('zoomstatus').innerHTML = map.getZoom().toString();
+
+map.on("zoomend", function(e){
+	zoomLev = map.getZoom();console.log("ZOOMEND", zoomLev); 
+	document.getElementById('zoomstatus').innerHTML =zoomLev.toString();
+	//alert(zoomLev);
+	if (zoomLev < 14){
+	//map.removeLayer(lariac);
+	
+	}else{
+	//map.addLayer(lariac);
+	}
+});
+
+
+
+
+////
+var alllayers = [];
+function zoomtoall(alllayers) {
+            var group = new L.featureGroup(alllayers);
+            map.fitBounds(group.getBounds());
+}
+
+function zoomto(mlayer) {
+	    //console.log(mlayer.getBounds());
+            map.fitBounds(mlayer.getBounds());
+}
+
+var track;
+////
+function myaddlayer(xxx) {
+           if (xxx["mtype"] == "kml") {
+		track = new L.KML(xxx["url"], {async: true});
+		xxx["layer"] = track;
+		xxx.checked = true;
+		alllayers.push(track);
+		var mmm = track.addTo(map);
+
+           } else if (xxx["mtype"] == "json") {console.log(xxx["url"]);
+               jQuery.getJSON(xxx["url"], function(mdata) {
+                   function onEachFeature(feature, mlayer) {
+                       
+                       mlayer.bindPopup("Name: " + feature.properties.name + "<br>" + "Population: " + feature.properties.population);
+                   }
+                   track = new L.geoJson(mdata, {
+                       onEachFeature: onEachFeature
+                   });
+
+		xxx["layer"] = track;
+		xxx.checked = true;
+		alllayers.push(track);
+		var mmm = track.addTo(map);
+               });
+           }else if (xxx["mtype"] == "shp"){
+		var shpfile = new L.Shapefile(xxx["url"], {
+			onEachFeature: function(feature, layer) {
+				if (feature.properties) {
+					layer.bindPopup(Object.keys(feature.properties).map(function(k) {
+						return k + ": " + feature.properties[k];
+					}).join("<br />"), {
+						maxHeight: 200
+					});
+				}
+			}
+		});
+		xxx["layer"] = shpfile;
+		xxx.checked = true;
+		alllayers.push(shpfile);
+		var mmm = shpfile.addTo(map);
+}
+}
+
+
+////
+
+
+function sss(data) {
+	for (var i = 0; i < data.length; i++) {
+		if (data[i]["url"]){
+		myaddlayer(data[i]);
+		}else{
+		sss(data[i]["children"]);
+		}
+
+	}
+}
+
+
+
+function mybasemap1(node){
+  if (node.checked){
+    tile = allbasemapes[node.mapname];
+    map.eachLayer(function (layer) {
+        map.removeLayer(curbasemap);
+    });
+    map.addLayer(tile);
+    curbasemap = tile;
+    curbasemapnode = node;
+  }
+}
+
+function mybasemap(node){
+	var roots = $('#a').tree('getRoots');
+	$.easyui.forEach(roots, true, function(dnode){
+	if (dnode.mapname){
+		if (dnode.checked){
+			$('#a').tree('update',{target:dnode.target,checked:false})
+		}
+		}
+	});
+
+	$('#a').tree('update',{target:node.target,checked:true})
+    tile = allbasemapes[node.mapname];
+    map.eachLayer(function (layer) {
+        map.removeLayer(allbasemapes[curbasemap]);
+    });
+    map.addLayer(tile);
+    curbasemap = node.mapname;
+    curbasemapnode = node;
+}
+
+////
+
+
+function changeicon(ttree, node,icon){
+			ttree.tree('update',{
+				target:node.target,
+				iconCls:icon
+			});
+	}
+ 
+
+
+$('#a').tree({
+            data: data
+        });
+
+$('#a').tree({
+            onClick: function(node) {
+
+		$('#a').tree('toggle', node.target);
+		//var node = $('#a').tree('getSelected');
+		//$('#a').tree('collapse',node.target);
+
+
+            }
+        });
+
+			
+$('#a').tree({
+            onChange: function(node) {
+		alert("kkk");
+            }
+        });
+
+
+
+function getchildren(t, parent){
+	var p = t.tree('getData', parent.target);
+	var children = p.children;  // get the children nodes
+	for(var i=0; i<children.length; i++){
+         if (children[i].isfolder){unchekchildren(t, children[i])
+         } else if (children[i].layer){
+	    alert(children[i].text);
+          }
+        }
+}
+
+function unchekchildren(t, parent){
+	var p = t.tree('getData', parent.target);
+	var children = p.children;  // get the children nodes
+	for(var i=0; i<children.length; i++){
+         if (children[i].isfolder){unchekchildren(t, children[i])
+         } else if (children[i].layer){
+	    map.removeLayer(children[i].layer);
+          }
+        }
+}
+
+
+var roots = $('#a').tree('getRoots');
+$.easyui.forEach(roots, true, function(node){
+    if (node.mapname){
+	if (node.checked){
+		curbasemapnode = node;
+	}
+    }
+});
+
+
+
+$('#a').tree({
+          onCheck: function(node) {if (node.isfolder) {unchekchildren($('#a'), node);$('#a').tree('update',{target:node.target,checked:false}); return}
+	      if (node.url) {
+		node.ticon = node.iconCls;
+		changeicon($('#a'), node,'icon-Loading_gif');
+                if (node.checked) {
+			myaddlayer(node);
+
+                } else {
+			if (node.layer){
+                    map.removeLayer(node.layer);
+			}
+                }
+		setTimeout(function() {changeicon($('#a'), node,node.ticon);}, 2000);
+	      }else if (node.mapname) {mybasemap(node);}
+       }
+});
+
+function layer_info(){
+			var t = $('#a');
+			var node = t.tree('getSelected');
+			if (node.info){
+				//alert(node.info);
+				$('#info').dialog('close');
+				$('#info').html(node.info);
+				$('#info').dialog('open');
+			};
+		}
+
+function zoomtothis(){
+		var node = $('#a').tree('getSelected');
+                if (!node.checked) {
+			$('#a').tree('update',{
+				target:node.target,
+				checked:true
+			});
+			Checkthis(node);
+                }
+			if (node.layer){
+				zoomto(node.layer);
+			}else{
+				var layerlist = [];
+				var mods =node;
+				$(mods).each(function(){
+					function iter(mod){
+						$(mod.children).each(function(){
+							var men = $(this);
+							if(men[0].children){iter(men[0].children)}
+							else {
+								if (men[0].layer){layerlist.push(men[0].layer)};
+							     }
+						})
+      					 }
+					var mod = $(this)[0];
+					iter(mod);    
+				})
+
+				if (layerlist.length > 0){zoomtoall(layerlist)};
+			}
+		}
+
+function collapse(){
+			var node = $('#a').tree('getSelected');
+			$('#a').tree('collapse',node.target);
+		}
+function expand(){
+			var node = $('#a').tree('getSelected');
+			$('#a').tree('expand',node.target);
+		}
+
+
+function download(){
+			var node = $('#a').tree('getSelected');
+			location = node.url;
+		}
+
+
+
+
+
+
+function checkthis(node){
+		$('#a').tree('update',{target:node.target,checked:true});
+	      	//node.ticon = node.iconCls;console.log(node.text);
+		//changeicon($('#a'), node,'icon-Loading_gif');
+			if (!node.layer){
+			myaddlayer(node);
+			}
+		
+}
+
+// get method
+
+function waitandzoom(node){
+	
+	if (node.layer.getBounds().isValid()){console.log("yes");
+		zoomto(node.layer);
+	}else{console.log("no");
+		setTimeout(function() {waitandzoom(node);}, 5000);
+	}
+}
+
+
+function getQueryVariable2(variable)
+{ 
+	var query = window.location.search.substring(1); 
+	var vars = query.split("&"); 
+	for (var i=0;i<vars.length;i++)
+	{ 
+    		var pair = vars[i].split("="); 
+    		if (pair[0] == variable)
+    		{ 
+			var node = $('#a').tree('find', {lid:pair[1]});
+   			if (node){
+				$('#a').tree('select', node.target);
+				checkthis(node);
+				waitandzoom(node);
+    			}
+		} 
+	}
+	return -1; //not found 
+}
+
+function onpageload_completed()
+{
+getQueryVariable2("lid");
+}
+
+
+
+
+
+function aboutme()
+{
+
+				$('#aboutme').dialog('close');
+				//$('#info').html("");
+				$('#aboutme').dialog('open');
+}
+
+</script>
+		<div id="mm" class="easyui-menu" style="width:120px;">
+		<div onclick="layer_info()" data-options="iconCls:'icon-tip'">Layer Info</div>
+		<div id="zoomtothis" onclick="zoomtothis()" data-options="iconCls:'icon-zoomin'">Zoom To Layer</div>
+		<div class="menu-sep"></div>
+		<div onclick="download()" data-options="iconCls:'icon-Download'">Download</div>
+	</div>
+    <div id="dlg" class="easyui-dialog" title="Basic Dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px;height:200px;padding:10px"></div>
+    <div id="info" class="easyui-dialog" title="Info" data-options="closed:true,iconCls:'icon-tip'" style="width:400px;height:200px;padding:10px"></div>
+<div id="aboutme" class="easyui-dialog" title="About me" data-options="closed:true,iconCls:'icon-tip'" style="width:400px;height:200px;padding:10px">
+<center>
+<p>برنامه نویس: محمود صمدی</p>
+<p>samadi.mahmood67@gmail.com</p>
+</center>
+
+</div>
+
+</body>
+
+</html>
