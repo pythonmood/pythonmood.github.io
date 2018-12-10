@@ -17720,7 +17720,7 @@ shp.parseDbf = function (dbf) {
 	return parseDbf(dbf);
 };
 module.exports = shp;
-
+ 
 }).call(this,require("buffer").Buffer)
 },{"./binaryajax":1,"./parseShp":2,"./toArrayBuffer":3,"./unzip":4,"buffer":5,"lie":51,"lru-cache":62,"parsedbf":63,"proj4":100}]},{},[133])(133)
 });
