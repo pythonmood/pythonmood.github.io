@@ -24,7 +24,7 @@
             <TileMatrixSetLink>
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
-            <ResourceURL format="image/png"###https://mt1.google.com/vt/lyrs=s&x={col}&y={row}&z={level}
+            <ResourceURL format="image/png"
                          template="https://mt1.google.com/vt/lyrs=s@4&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/>
         </Layer>
