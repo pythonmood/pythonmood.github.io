@@ -89,7 +89,7 @@
                          resourceType="tile"/> 
         </Layer>
         <Layer>
-            <ows:Title>google Road</ows:Title>
+            <ows:Title>google Road m</ows:Title>
             <ows:Abstract></ows:Abstract>
             <ows:Identifier>google Road</ows:Identifier>
             <Style isDefault="false">
@@ -101,6 +101,36 @@
             </TileMatrixSetLink>
             <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+        <Layer>
+            <ows:Title>google Road h</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google Road</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google Road</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=h&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+        <Layer>
+            <ows:Title>google terrain</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google terrain</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google terrain</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=p&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
 
