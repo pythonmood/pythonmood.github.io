@@ -4,7 +4,7 @@
               xsi:schemaLocation="http://www.opengis.net/wmts/1.0 http://schemas.opengis.net/wmts/1.0/wmtsGetCapabilities_response.xsd"
               version="1.0.0">
     <ows:ServiceIdentification>
-        <ows:Title>Nokia</ows:Title>
+        <ows:Title>Pythonmood</ows:Title>
         <ows:Abstract>
         </ows:Abstract>
         <ows:ServiceType>OGC WMTS</ows:ServiceType>
@@ -59,11 +59,11 @@
                          resourceType="tile"/>
         </Layer>
         <Layer>
-            <ows:Title>google-sat</ows:Title>
+            <ows:Title>google sattelite</ows:Title>
             <ows:Abstract></ows:Abstract>
-            <ows:Identifier>google-sat</ows:Identifier>
+            <ows:Identifier>google sattelite</ows:Identifier>
             <Style isDefault="false">
-                <ows:Identifier>nokia</ows:Identifier>
+                <ows:Identifier>google sattelite</ows:Identifier>
             </Style>
             <Format>image/png</Format>
             <TileMatrixSetLink>
@@ -73,6 +73,37 @@
                          template="https://mt1.google.com/vt/lyrs=s&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
+        <Layer>
+            <ows:Title>google Hybrid</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google Hybrid</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google Hybrid</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=y&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+        <Layer>
+            <ows:Title>google Road</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google Road</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google Road</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+
         <TileMatrixSet>
             <ows:Identifier>google3857</ows:Identifier>
             <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.18.3:4326">
