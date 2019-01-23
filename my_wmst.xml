@@ -131,7 +131,7 @@
                          resourceType="tile"/> 
         </Layer>
         <Layer>
-            <ows:Title>google standard roadmap2</ows:Title>
+            <ows:Title>google standard roadmap3</ows:Title>
             <ows:Abstract></ows:Abstract>
             <ows:Identifier>google standard roadmap</ows:Identifier>
             <Style isDefault="false">
@@ -141,11 +141,8 @@
             <TileMatrixSetLink>
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
-            <ResourceURL format="image/jpg"
-                         template="https://mts0.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
-                         resourceType="tile"/> 
-            <ResourceURL format="image/jpg"
-                         template="https://mts1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+            <ResourceURL format="image/png"
+                         template="https://mts1.google.com/vt/lyrs=m@4&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/>
         </Layer>
         <Layer>
