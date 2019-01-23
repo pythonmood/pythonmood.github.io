@@ -88,6 +88,9 @@
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
             <ResourceURL format="image/jpg"
+                         template="https://mt0.google.com/vt/lyrs=y&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+            <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=y&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
@@ -102,6 +105,9 @@
             <TileMatrixSetLink>
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt0.google.com/vt/lyrs=p&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
             <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=p&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
@@ -118,6 +124,9 @@
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
             <ResourceURL format="image/jpg"
+                         template="https://mt0.google.com/vt/lyrs=t&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+            <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=t&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
@@ -133,8 +142,11 @@
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
             <ResourceURL format="image/jpg"
-                         template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         template="https://mt0.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/>
         </Layer>
         <Layer>
             <ows:Title>google altered roadmap</ows:Title>
@@ -147,6 +159,9 @@
             <TileMatrixSetLink>
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt0.google.com/vt/lyrs=r&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
             <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=r&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
