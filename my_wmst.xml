@@ -151,7 +151,7 @@
         <Layer>
             <ows:Title>google altered roadmap3</ows:Title>
             <ows:Abstract></ows:Abstract>
-            <ows:Identifier>google altered roadmap</ows:Identifier>
+            <ows:Identifier>google altered roadmap3</ows:Identifier>
             <Style isDefault="false">
                 <ows:Identifier>google altered roadmap</ows:Identifier>
             </Style>
@@ -160,10 +160,10 @@
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
             <ResourceURL format="image/png"
-                         template="https://mts0.google.com/vt/lyrs=r&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         template="https://mts0.google.com/vt/lyrs=r@4&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
             <ResourceURL format="image/png"
-                         template="https://mts1.google.com/vt/lyrs=r&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         template="https://mts1.google.com/vt/lyrs=r@4&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
       
