@@ -119,11 +119,11 @@
                          resourceType="tile"/> 
         </Layer>
         <Layer>
-            <ows:Title>google road</ows:Title>
+            <ows:Title>google standard roadmap</ows:Title>
             <ows:Abstract></ows:Abstract>
-            <ows:Identifier>google road</ows:Identifier>
+            <ows:Identifier>google standard roadmap</ows:Identifier>
             <Style isDefault="false">
-                <ows:Identifier>google road</ows:Identifier>
+                <ows:Identifier>google standard roadmap</ows:Identifier>
             </Style>
             <Format>image/png</Format>
             <TileMatrixSetLink>
@@ -131,6 +131,21 @@
             </TileMatrixSetLink>
             <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+        <Layer>
+            <ows:Title>google altered roadmap</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google altered roadmap</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google altered roadmap</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=r&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
         <TileMatrixSet>
