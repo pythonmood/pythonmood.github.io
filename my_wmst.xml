@@ -69,7 +69,7 @@
             <TileMatrixSetLink>
                 <TileMatrixSet>google3857</TileMatrixSet>
             </TileMatrixSetLink>
-            <ResourceURL format="image/png"
+            <ResourceURL format="image/jpg"
                          template="https://mt1.google.com/vt/lyrs=s&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
