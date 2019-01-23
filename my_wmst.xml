@@ -103,6 +103,36 @@
                          template="https://mt1.google.com/vt/lyrs=p&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
                          resourceType="tile"/> 
         </Layer>
+        <Layer>
+            <ows:Title>google terrain only</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google terrain only</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google terrain only</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=t&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
+        <Layer>
+            <ows:Title>google road</ows:Title>
+            <ows:Abstract></ows:Abstract>
+            <ows:Identifier>google road</ows:Identifier>
+            <Style isDefault="false">
+                <ows:Identifier>google road</ows:Identifier>
+            </Style>
+            <Format>image/png</Format>
+            <TileMatrixSetLink>
+                <TileMatrixSet>google3857</TileMatrixSet>
+            </TileMatrixSetLink>
+            <ResourceURL format="image/jpg"
+                         template="https://mt1.google.com/vt/lyrs=m&amp;x={TileCol}&amp;y={TileRow}&amp;z={TileMatrix}"
+                         resourceType="tile"/> 
+        </Layer>
         <TileMatrixSet>
             <ows:Identifier>google3857</ows:Identifier>
             <ows:BoundingBox crs="urn:ogc:def:crs:EPSG:6.18.3:4326">
