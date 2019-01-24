@@ -184,7 +184,7 @@
       <ResourceURL format="image/png" resourceType="tile" template="http://gis.sinica.edu.tw/worldmap/file-exists.php?img=GlobeLand30-png-{TileMatrix}-{TileCol}-{TileRow}"/>
     </Layer>
     <Layer>
-      <ows:Title>Apple iPhoto</ows:Title>
+      <ows:Title>Apple iPhoto2</ows:Title>
       <ows:Identifier>Apple</ows:Identifier>
             <ows:WGS84BoundingBox crs="urn:ogc:def:crs:OGC:2:84">
         <ows:LowerCorner>-180 -85.0511</ows:LowerCorner>
@@ -195,7 +195,7 @@
       </Style>
       <Format>image/jpeg</Format>
       <TileMatrixSetLink>
-        <TileMatrixSet>GoogleMapsCompatible</TileMatrixSet>
+        <TileMatrixSet>google3857</TileMatrixSet>
       </TileMatrixSetLink>
       <ResourceURL format="image/jpeg" resourceType="tile" template="http://gis.sinica.edu.tw/worldmap/file-exists.php?img=Apple-jpg-{TileMatrix}-{TileCol}-{TileRow}"/>
     </Layer>
